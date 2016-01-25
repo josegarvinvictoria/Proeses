@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 /*
  * Variables necessaries per determinar l'ubicació de l'executable
@@ -10,16 +11,18 @@
 #define GetCurrentDir _getcwd
 #else
 
-#include <unistd.h>
-
 #define GetCurrentDir getcwd
 #endif
 
 
 using namespace std;
 
+//int tempsPersonalitats[20][2];
 string personalitats[20][2];
 int numPersonalitats = 0;
+
+void mostraBenvinguda();
+
 
 /*
  * Funció per determinar l'ubicació de l'arxiu executable del programa.
@@ -51,7 +54,6 @@ string obtenirInformacio(string linia, int informacioAcercar) {
 
 
     return info;
-
 }
 
 void canviOrdre(int index) {
@@ -107,18 +109,63 @@ void llegirFitxer() {
 
 }
 
-void mostraPersonalitats(){
-        for(int i = 0; i<numPersonalitats;i++){
-            printf("%s ", personalitats[i][0].c_str());
+void mostraPersonalitats() {
+    for (int i = 0; i < numPersonalitats; i++) {
+        printf("%s ", personalitats[i][0].c_str());
     }
 }
 
 
+void menuNovaInformacio() {
+    cout << "(i) NOVA INFORMACIO - (b) BAIXA - (s) SORTIR:" << endl;
 
-void mostraMenu(){
-    cout << "- BENVINGUTS RANQUING DE PROESES -" <<  endl;
-    cout << "PERSONALITATS INICIALS:" << endl;
+    char opcio;
+    cin >> opcio;
+
+    switch (opcio) {
+        case 'i':
+            cout << "Nova info" << endl;
+
+        case 'b':
+            cout << "Baixa" << endl;
+
+        case 's':
+            mostraBenvinguda();
+    }
+}
+
+
+void mostraBenvinguda() {
+    cout << "- BENVINGUTS RANQUING DE PROESES - \n" << endl;
+    cout << "PERSONALITATS INICIALS: " << endl;
+
+
     mostraPersonalitats();
+    int opcio;
+    cout << " \n \n 1- INTRODUCCIO D'INFORMACIO | 2- MOSTRAR RANKING | 3- SORTIR" << endl;
+
+    cin >> opcio;
+
+    switch (opcio) {
+        case 1:
+
+            menuNovaInformacio();
+
+            break;
+        case 2:
+            //MenuRanking
+            cout << "Opcio2" << endl;
+            break;
+
+        case 3:
+            exit(EXIT_SUCCESS);
+
+    }
+
+}
+
+
+void mostrarMenu1() {
 
 }
 
@@ -127,7 +174,7 @@ int main() {
     getCurrentDir();
     llegirFitxer();
     ordenarPersonalitats();
-    mostraMenu();
+    mostraBenvinguda();
 
 
     return 0;
